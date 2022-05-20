@@ -10,20 +10,20 @@ import { Sort } from "./components/Sort/Sort";
 import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
 
-import Button from "./components/Button/Button";
 
 export const App = () => {
 
     const [cards, setCards] = useState([]);
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     // console.log(currentUser)
     useEffect(() => {
-        Promise.all([api.getProductsList(), api.getUserInfo()]).then(
-            ([productData, userData]) => {
+        Promise.all([api.getProductsList(), api.getUserInfo()])
+            .then(([productData, userData]) => {
                 setCards(productData?.products);
                 setCurrentUser(userData);
             })
+            .catch(err => console.log(err))
     }, []);
 
     useEffect(() => {
@@ -35,10 +35,9 @@ export const App = () => {
     }
 
     const handlerRequest = () => {
-        if (searchQuery !== "") {
-            const filterCards = cards.filter(card => card?.name.toLowerCase().includes(searchQuery.toLowerCase()));
-            setCards(prevState => filterCards);
-        }
+        api.searchProducts(searchQuery)
+            .then(searchData => setCards(searchData))
+            .catch(err => console.log(err))
     }
 
     const handlerFormSubmit = (e) => {
@@ -62,12 +61,6 @@ export const App = () => {
                     <Search />
                 </Header>
                 <div className="content container">
-                    <Button type="primary">
-                        купить
-                    </Button>
-                    <Button type="secondary">
-                        подробнее
-                    </Button>
                     <SearchInfo />
                     <Sort />
                     <div className="content__cards">

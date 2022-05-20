@@ -3,7 +3,7 @@ import "./style.css";
 import { ReactComponent as Save } from "./img/save.svg";
 import classnames from "classnames";
 
-export const Card = ({ _id, name, likes, price, discount, wight, description, available, pictures, tags }) => {
+export const Card = ({ _id, name, likes, price, discount, wight, description, available, pictures, tags, stock }) => {
 
     const discount_price = Math.round(price - price * discount / 100);
 
@@ -27,7 +27,7 @@ export const Card = ({ _id, name, likes, price, discount, wight, description, av
                 </button>
                 
             </div>
-            {!!likes.length && <div className="number-of-likes">{likes.length}</div>}
+            {!!likes?.length && <div className="number-of-likes">{likes?.length}</div>}
 
             <a href={`/product/${_id}`} className="card__link">
                 <img src={pictures} alt={description} className="card__image" />
@@ -35,6 +35,7 @@ export const Card = ({ _id, name, likes, price, discount, wight, description, av
                     {!!discount && <span className="card__old-price">{price}₽</span>}
                     <span className={classnames('card__price', { 'card__price_type_discount': !!discount })}>{discount_price}₽</span>
                     <span className="card__wight">{wight}</span>
+                    <span className="card__wight">в наличии: {stock} шт</span>
                     <p className="card__name">{name}</p>
                 </div>
             </a>
