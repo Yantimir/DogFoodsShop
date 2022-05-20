@@ -10,6 +10,8 @@ import { Sort } from "./components/Sort/Sort";
 import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
 
+import Button from "./components/Button/Button";
+
 export const App = () => {
 
     const [cards, setCards] = useState([]);
@@ -24,7 +26,7 @@ export const App = () => {
             })
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         handlerRequest();
     }, [searchQuery]);
 
@@ -60,6 +62,12 @@ export const App = () => {
                     <Search />
                 </Header>
                 <div className="content container">
+                    <Button type="primary">
+                        купить
+                    </Button>
+                    <Button type="secondary">
+                        подробнее
+                    </Button>
                     <SearchInfo />
                     <Sort />
                     <div className="content__cards">
