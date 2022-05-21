@@ -11,19 +11,19 @@ import Spinner from "./components/Spinner/Spinner";
 import { Footer } from "./components/Footer/Footer";
 import { Product } from "./components/Product/Product";
 
-
+const ID_PRODUCT = "622c77e877d63f6e70967d22";
 export const PageProduct = () => {
 
-    const [cards, setCards] = useState([]);
+    const [product, setProduct] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const delaySeachQuery = useDebounce(searchQuery, 300);
+    // const delaySeachQuery = useDebounce(searchQuery, 300);
 
     useEffect(() => {
-        Promise.all([api.getProductsList(), api.getUserInfo()])
+        Promise.all([api.getProductById(ID_PRODUCT), api.getUserInfo()])
             .then(([productData, userData]) => {
-                setCards(productData?.products);
+                setProduct(productData);
                 setCurrentUser(userData);
             })
             .catch(err => console.log(err))
@@ -32,7 +32,7 @@ export const PageProduct = () => {
     // поиск ---------------------------------------
     useEffect(() => {
         handlerRequest();
-    }, [delaySeachQuery]);
+    }, [searchQuery]);
 
     const handlerInputChange = (inputValue) => {
         setSearchQuery(inputValue);
@@ -40,35 +40,32 @@ export const PageProduct = () => {
 
     const handlerRequest = useCallback(() => {
         setIsLoading(!isLoading);
-        api.searchProducts(delaySeachQuery)
-            .then(dataSearch => setCards(dataSearch))
+        api.searchProducts(searchQuery)
+            .then(dataSearch => console.log(dataSearch))
             .catch(err => console.log(err))
             .finally(() => {
                 setTimeout(() => setIsLoading(isLoading), 1000)
             })
-    }, [delaySeachQuery])
+    }, [searchQuery])
 
-    const handlerFormSubmit = (e) => {
-        e.preventDefault();
+    const handlerFormSubmit = (inputValue) => {
+        setSearchQuery(inputValue);
         handlerRequest();
     }
     // ----------------------------------------------
 
-    // обновление информации о пользователе
-    const handlerUpdateUser = (userUpdate) => {
-        api.setUserInfo(userUpdate)
-            .then(newUserData => setCurrentUser(newUserData))
-            .catch(err => console.log(err))
-    }
+    // // обновление информации о пользователе
+    // const handlerUpdateUser = (userUpdate) => {
+    //     api.setUserInfo(userUpdate)
+    //         .then(newUserData => setCurrentUser(newUserData))
+    //         .catch(err => console.log(err))
+    // }
 
     // установка/снятие лайка
-    const handlerProductLike = ({ _id, isLiked }) => {
-        api.changeLikeStatus(_id, isLiked)
+    const handlerProductLike = ({ productId, isLiked }) => {
+        api.changeLikeStatus(productId, isLiked)
             .then((newCard) => {
-                const newCardsState = cards.map(card => {
-                    return card._id === newCard?._id ? newCard : card;
-                });
-                setCards(newCardsState);
+                setProduct(newCard);
             })
     }
 
@@ -76,12 +73,12 @@ export const PageProduct = () => {
         <>
             <AppContext.Provider value={
                 {
-                    cards,
+                    product,
                     currentUser,
-                    searchQuery,
-                    handlerInputChange,
+                    // searchQuery,
+                    // handlerInputChange,
                     handlerFormSubmit,
-                    handlerUpdateUser,
+                    // handlerUpdateUser,
                     handlerProductLike
                 }
             }>
@@ -90,10 +87,8 @@ export const PageProduct = () => {
                     <Search />
                 </Header>
                 <div className="content container">
-                    <div className="content__cards">
-                        {isLoading && <Spinner />}
-                        <Product />
-                    </div>
+                    {isLoading && <Spinner />}
+                    <Product />
                 </div>
                 <Footer />
             </AppContext.Provider>

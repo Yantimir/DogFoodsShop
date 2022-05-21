@@ -9,11 +9,16 @@ export const Search = () => {
 
     const { handlerInputChange, handlerFormSubmit } = useContext(AppContext);
 
+    const handlerForm = (e) => {
+        e.preventDefault();
+        handlerFormSubmit && handlerFormSubmit(e.target.querySelector(".input__emMnZ")?.value)
+    }
+
     return (
         <>
-            <form className={style.search} onSubmit={handlerFormSubmit}>
+            <form className={style.search} onSubmit={handlerForm}>
                 <input
-                    onInput={(e) => handlerInputChange(e.target.value)}
+                    onInput={(e) => handlerInputChange && handlerInputChange(e.target.value)}
                     type="text"
                     placeholder="Поиск"
                     className={style.input}
