@@ -9,6 +9,7 @@ import { Logo } from "./components/Logo/Logo";
 import { Search } from "./components/Search/Search";
 import { SearchInfo } from "./components/SearchInfo/SearchInfo";
 import { Sort } from "./components/Sort/Sort";
+import Spinner from "./components/Spinner/Spinner";
 import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
 
@@ -18,17 +19,19 @@ export const App = () => {
 
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
-    // const [isLike, setIsLike] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
 
     useEffect(() => {
+        setIsLoading(!isLoading);
         Promise.all([api.getProductsList(), api.getUserInfo()])
             .then(([productData, userData]) => {
                 setCards(productData?.products);
                 setCurrentUser(userData);
             })
             .catch(err => console.log(err))
+            .finally(() => setTimeout(()=>{setIsLoading(isLoading)}, 1000))
     }, []);
 
     // поиск ---------------------------------------
@@ -91,7 +94,7 @@ export const App = () => {
                     <SearchInfo />
                     <Sort />
                     <div className="content__cards">
-                        <Cards />
+                        {isLoading ? <Spinner /> : <Cards />}
                     </div>
                 </div>
                 <Footer />

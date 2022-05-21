@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./style.css";
-import { ReactComponent as Save } from "./img/save.svg";
 import classnames from "classnames";
+import { ReactComponent as Save } from "./img/save.svg";
 
 import { AppContext } from "../../context/appContext";
 
@@ -42,10 +42,7 @@ export const Card = (
             <div className="card__sticky card__sticky_type_top-right">
                 <div className="card__like">
                     <button onClick={handlerLikeClick} className="card__favorite">
-                        <Save className={classnames(
-                            "card__favorite-icon",
-                            { "card__favorite-icon_active": isLiked }
-                        )} />
+                        <Save className={classnames( "card__favorite-icon", { "card__favorite-icon_active": isLiked })} />
                     </button>
                     {!!likes?.length && <div className="number-of-likes">{likes?.length}</div>}
                 </div>
@@ -56,7 +53,7 @@ export const Card = (
                 <img src={pictures} alt={description} className="card__image" />
                 <div className="card__desc">
                     {!!discount && <span className="card__old-price">{price}₽</span>}
-                    <span className={classnames('card__price', { 'card__price_type_discount': !!discount })}>{discount_price}₽</span>
+                    <span className={classnames("card__price", { "card__price_type_discount": !!discount })}>{discount_price}₽</span>
                     <span className="card__wight">{wight}</span>
                     <span className="card__wight">в наличии: {stock} шт</span>
                     <p className="card__name">{name}</p>
