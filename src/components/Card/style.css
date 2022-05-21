@@ -22,6 +22,16 @@
 	position: relative;
 }
 
+.card__like {
+	display: flex;
+	align-items: center;
+}
+
+.number-of-likes {
+	font-weight: 700;
+	font-size: 12px;
+}
+
 .card__image {
 	width: 100%;
 	object-fit: contain;
@@ -99,6 +109,9 @@
 	display: flex;
 }
 
+.card__favorite-icon_active {
+	fill: var(--main-red);
+}
 .card__cart {
 	margin-top: auto;
 }
@@ -122,10 +135,9 @@
 	background-color: #03A9F4;
 	color: #FFFFFF;
 }
+
 .tag_type_sale {
 	background-color: #01A54E;
 	color: #FFFFFF;
 }
-.card__favorite-icon_active {
-	fill: #000000;
-}
+

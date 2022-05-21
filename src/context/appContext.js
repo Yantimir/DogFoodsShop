@@ -6,7 +6,8 @@ export const AppContext = React.createContext({
     searchQuery: "",
     handlerInputChange: () => {},
     handlerFormSubmit: () => {},
-    onUpdateUser: () => {}
+    handlerUpdateUser: () => {},
+    handlerProductLike: () => {}
     // favorites: [],
     // handleProductLike: () => {},
 });

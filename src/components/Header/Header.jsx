@@ -7,25 +7,26 @@ import Button from "../Button/Button";
 
 export const Header = ({ children }) => {
 
-    const { currentUser: client, onUpdateUser } = useContext(AppContext);
+    const { currentUser: user, handlerUpdateUser } = useContext(AppContext);
 
-    function handlerClickEditClient(e)  {
+    function handlerClickUpdateUser(e)  {
         e.preventDefault();
-        onUpdateUser({name: "Мингазитдинов Янтимир", about: "пользователь"});
+        handlerUpdateUser({name: "Мингазитдинов Янтимир", about: "покупатель"});
     }
+
     return (
         <header className={style.header}>
             <div className={classnames(style.wrapper, "container")}>
                 {children}
                 <div className={style.client}>
                     <div className={style.avatar}>
-                        {client.avatar && <img className={style.avatar} src={client.avatar} alt={client.avatar} />}
+                        {user.avatar && <img className={style.avatar} src={user.avatar} alt={user.avatar} />}
                     </div>
                     <div className={style.profile}>
-                        {client.name && <div>{client.name}</div>}
-                        {client.about && <div>{client.about}</div>}
-                        {client.email && <div>{client.email}</div>}
-                        <Button handlerClick={handlerClickEditClient} type="secondary">изменить</Button>
+                        {user.name && <div>{user.name}</div>}
+                        {user.about && <div>{user.about}</div>}
+                        {user.email && <div>{user.email}</div>}
+                        <Button handlerClick={handlerClickUpdateUser} type="secondary">изменить</Button>
                     </div>
                 </div>
             </div>

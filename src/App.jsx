@@ -18,6 +18,7 @@ export const App = () => {
 
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
+    // const [isLike, setIsLike] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
 
@@ -30,6 +31,7 @@ export const App = () => {
             .catch(err => console.log(err))
     }, []);
 
+    // поиск ---------------------------------------
     useEffect(() => {
         handlerRequest();
     }, [delaySeachQuery]);
@@ -48,11 +50,24 @@ export const App = () => {
         e.preventDefault();
         handlerRequest();
     }
+    // ----------------------------------------------
 
-    const onUpdateUser = (userUpdate) => {
+    // обновление информации о пользователе
+    const handlerUpdateUser = (userUpdate) => {
         api.setUserInfo(userUpdate)
             .then(newUserData => setCurrentUser(newUserData))
             .catch(err => console.log(err))
+    }
+
+    // установка/снятие лайка
+    const handlerProductLike = ({ _id, isLiked }) => {
+        api.changeLikeStatus(_id, isLiked)
+            .then((newCard) => {
+                const newCardsState = cards.map(card => {
+                    return card._id === newCard?._id ? newCard : card;
+                });
+                setCards(newCardsState);
+            })
     }
 
     return (
@@ -64,7 +79,8 @@ export const App = () => {
                     searchQuery,
                     handlerInputChange,
                     handlerFormSubmit,
-                    onUpdateUser
+                    handlerUpdateUser,
+                    handlerProductLike
                 }
             }>
                 <Header>

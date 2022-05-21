@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import { ReactComponent as Save } from "./img/save.svg";
 import classnames from "classnames";
 
-export const Card = ({ _id, name, likes, price, discount, wight, description, available, pictures, tags, stock }) => {
+import { AppContext } from "../../context/appContext";
 
+export const Card = (
+    {
+        _id,
+        name,
+        likes,
+        price,
+        discount,
+        wight,
+        description,
+        available,
+        pictures,
+        tags,
+        stock
+    }) => {
+
+    const { currentUser, handlerProductLike } = useContext(AppContext);
     const discount_price = Math.round(price - price * discount / 100);
+    const isLiked = likes?.some(id => id === currentUser?._id);
+
+    function handlerLikeClick() {
+        handlerProductLike({ _id, isLiked });
+    }
 
     return (
 
@@ -19,15 +40,17 @@ export const Card = ({ _id, name, likes, price, discount, wight, description, av
                 )}
             </div>
             <div className="card__sticky card__sticky_type_top-right">
-                <button className="card__favorite">
-                    <Save className={classnames(
-                        'card__favorite-icon',
-                        // { 'card__favorite-icon_active': isLike }
-                    )} />
-                </button>
-                
+                <div className="card__like">
+                    <button onClick={handlerLikeClick} className="card__favorite">
+                        <Save className={classnames(
+                            "card__favorite-icon",
+                            { "card__favorite-icon_active": isLiked }
+                        )} />
+                    </button>
+                    {!!likes?.length && <div className="number-of-likes">{likes?.length}</div>}
+                </div>
             </div>
-            {!!likes?.length && <div className="number-of-likes">{likes?.length}</div>}
+
 
             <a href={`/product/${_id}`} className="card__link">
                 <img src={pictures} alt={description} className="card__image" />
@@ -43,7 +66,6 @@ export const Card = ({ _id, name, likes, price, discount, wight, description, av
                 В корзину
             </a>
         </div >
-
 
     );
 };

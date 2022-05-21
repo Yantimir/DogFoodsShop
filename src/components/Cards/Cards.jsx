@@ -7,7 +7,7 @@ import { Card } from "../Card/Card";
 export const Cards = () => {
 
     const { cards } = useContext(AppContext);
-
+    
     return (
         <div className={style.cards}>
             {cards?.map(({ __v, ...dataItem }) => {
