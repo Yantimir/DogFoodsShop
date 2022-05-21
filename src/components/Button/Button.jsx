@@ -5,9 +5,9 @@ import style from "./style.module.css";
 
 
 
-const _Button = ({ type, children }) => {
+const _Button = ({ type, children, handlerClick }) => {
     return (
-        <button className={classNames(
+        <button onClick={handlerClick} className={classNames(
             style.button,
             {
                 [style.primary]: type === "primary",

@@ -121,11 +121,11 @@ class Api {
             .catch(onError)
     }
     // изменение name и about
-    setUserInfo(userData) {
+    setUserInfo(userUpdate) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
             headers: this._headers,
-            body: JSON.stringify(userData),
+            body: JSON.stringify(userUpdate),
         }).then(onResponse)
             .catch(onError)
     }

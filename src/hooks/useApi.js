@@ -14,6 +14,5 @@ export const useApi = (handler) => {
             .finally(()=> {setLoading(false)})
     }, [handler])
 
-
     return {data, loading, error}
 }
