@@ -17,7 +17,8 @@ export const Card = (
         available,
         pictures,
         tags,
-        stock
+        stock,
+        reviews
     }) => {
 
     const { currentUser, handlerProductLike } = useContext(AppContext);

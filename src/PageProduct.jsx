@@ -7,13 +7,12 @@ import useDebounce from "./hooks/useDebounce";
 import { Header } from "./components/Header/Header";
 import { Logo } from "./components/Logo/Logo";
 import { Search } from "./components/Search/Search";
-import { SearchInfo } from "./components/SearchInfo/SearchInfo";
-import { Sort } from "./components/Sort/Sort";
 import Spinner from "./components/Spinner/Spinner";
-import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
+import { Product } from "./components/Product/Product";
 
-export const App = () => {
+
+export const PageProduct = () => {
 
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
@@ -91,10 +90,9 @@ export const App = () => {
                     <Search />
                 </Header>
                 <div className="content container">
-                    <SearchInfo />
-                    <Sort />
                     <div className="content__cards">
-                        {isLoading ? <Spinner /> : <Cards />}
+                        {isLoading && <Spinner />}
+                        <Product />
                     </div>
                 </div>
                 <Footer />

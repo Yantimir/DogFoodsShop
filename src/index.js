@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+
+import { PageProduct } from "./PageProduct";
 
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <PageProduct />
     </BrowserRouter>, 
     document.querySelector("#root")
 );
