@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import "./style.css";
 // import  cn  from 'classnames';
 
 
-export const Sort = ({ tabs, onChageSort }) => {
-	const [currentSort, setCurrentSort] = useState("")
+export const Sort = () => {
+	// const [currentSort, setCurrentSort] = useState("")
 
 	return (
 		// <div className="sort content__sort">

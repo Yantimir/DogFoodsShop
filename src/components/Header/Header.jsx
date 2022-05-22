@@ -26,7 +26,7 @@ export const Header = ({ children }) => {
                         {user.name && <div>{user.name}</div>}
                         {user.about && <div>{user.about}</div>}
                         {user.email && <div>{user.email}</div>}
-                        <Button handlerClick={handlerClickUpdateUser} type="secondary">изменить</Button>
+                        <Button handlerClick={handlerClickUpdateUser} type="secondary">Изменить</Button>
                     </div>
                 </div>
             </div>

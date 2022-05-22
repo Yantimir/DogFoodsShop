@@ -8,24 +8,36 @@ import { Header } from "./components/Header/Header";
 import { Logo } from "./components/Logo/Logo";
 import { Search } from "./components/Search/Search";
 import { SearchInfo } from "./components/SearchInfo/SearchInfo";
-import { Sort } from "./components/Sort/Sort";
-import Spinner from "./components/Spinner/Spinner";
-import { Cards } from "./components/Cards/Cards";
+import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
+import { ProductPage } from "./pages/ProductPage/ProductPage";
+// import { Sort } from "./components/Sort/Sort";
+// import Spinner from "./components/Spinner/Spinner";
+// import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
+
+const ID_PRODUCT = "622c77e877d63f6e70967d22";
 
 export const App = () => {
 
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
+    const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
 
     useEffect(() => {
-        Promise.all([api.getProductsList(), api.getUserInfo()])
+        Promise.all(
+            [
+                api.getProductsList(),
+                api.getUserInfo(),
+                api.getProductById(ID_PRODUCT)
+            ]
+        )
             .then(([productData, userData]) => {
                 setCards(productData?.products);
                 setCurrentUser(userData);
+                setProduct(productData?.products);
             })
             .catch(err => console.log(err))
     }, []);
@@ -45,7 +57,7 @@ export const App = () => {
             .then(dataSearch => setCards(dataSearch))
             .catch(err => console.log(err))
             .finally(() => {
-                setTimeout(() => setIsLoading(isLoading), 1000)
+                setTimeout(() => setIsLoading(isLoading), 500)
             })
     }, [delaySeachQuery])
 
@@ -78,8 +90,10 @@ export const App = () => {
             <AppContext.Provider value={
                 {
                     cards,
+                    product,
                     currentUser,
                     searchQuery,
+                    isLoading,
                     handlerInputChange,
                     handlerFormSubmit,
                     handlerUpdateUser,
@@ -92,10 +106,13 @@ export const App = () => {
                 </Header>
                 <div className="content container">
                     <SearchInfo />
-                    <Sort />
+                    <CatalogPage />
+                    <ProductPage />
+                    {/* <Sort />
                     <div className="content__cards">
-                        {isLoading ? <Spinner /> : <Cards />}
-                    </div>
+                        {isLoading && <Spinner />}
+                        <Cards />
+                    </div> */}
                 </div>
                 <Footer />
             </AppContext.Provider>

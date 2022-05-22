@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
-import { PageProduct } from "./PageProduct";
+import { App } from "./App";
 
 ReactDOM.render(
     <BrowserRouter>
-        <PageProduct />
+        <App />
     </BrowserRouter>, 
     document.querySelector("#root")
 );

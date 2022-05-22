@@ -11,7 +11,7 @@ export const Product = () => {
 
     const [count, setCount] = useState(0);
     const { product, currentUser, handlerProductLike } = useContext(AppContext);
-    // console.log(product?._id)
+    console.log(product)
     const discount_price = Math.round(product?.price - product?.price * product?.discount / 100);
     const isLiked = product?.likes?.some(id => id === currentUser?._id);
 

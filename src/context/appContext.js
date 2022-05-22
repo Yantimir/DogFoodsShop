@@ -5,12 +5,12 @@ export const AppContext = React.createContext({
     product: [],
     currentUser: {},
     searchQuery: "",
+    isLoading: false,
     handlerInputChange: () => {},
     handlerFormSubmit: () => {},
     handlerUpdateUser: () => {},
     handlerProductLike: () => {}
     // favorites: [],
-    // handleProductLike: () => {},
 });
 
 AppContext.displayName = "AppContext";
