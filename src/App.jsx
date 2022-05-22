@@ -14,13 +14,12 @@ import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { Footer } from "./components/Footer/Footer";
 
 
-const ID_PRODUCT = "622c77e877d63f6e70967d22";
+// const ID_PRODUCT = "622c77e877d63f6e70967d22";
 
 export const App = () => {
 
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
-    const [product, setProduct] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
@@ -30,13 +29,11 @@ export const App = () => {
             [
                 api.getProductsList(),
                 api.getUserInfo(),
-                api.getProductById(ID_PRODUCT)
             ]
         )
-            .then(([productsData, userData, productData]) => {
+            .then(([productsData, userData]) => {
                 setCards(productsData?.products);
                 setCurrentUser(userData);
-                setProduct(productData);
             })
             .catch(err => console.log(err))
     }, []);
@@ -74,8 +71,8 @@ export const App = () => {
     }
 
     // установка/снятие лайка
-    const handlerProductLike = ({ _id, isLiked }) => {
-        api.changeLikeStatus(_id, isLiked)
+    const handlerProductLike = ({ productId, isLiked }) => {
+        api.changeLikeStatus(productId, isLiked)
             .then((newCard) => {
                 const newCardsState = cards.map(card => {
                     return card._id === newCard?._id ? newCard : card;
@@ -89,7 +86,6 @@ export const App = () => {
             <AppContext.Provider value={
                 {
                     cards,
-                    product,
                     currentUser,
                     searchQuery,
                     isLoading,
@@ -109,8 +105,11 @@ export const App = () => {
                         <Route path="/" element={
                             <CatalogPage />
                         } />
-                        <Route path="/product" element={
+                        <Route path="/product/:productID" element={
                             <ProductPage />
+                        } />
+                        <Route path="*" element={
+                            <h1>страница не найдена</h1>
                         } />
                     </Routes>
                 </div>

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 import classnames from "classnames";
 import { ReactComponent as Save } from "./img/save.svg";
@@ -26,7 +27,8 @@ export const Card = (
     const isLiked = likes?.some(id => id === currentUser?._id);
 
     function handlerLikeClick() {
-        handlerProductLike({ _id, isLiked });
+        const productId = _id;
+        handlerProductLike({ productId, isLiked });
     }
 
     return (
@@ -50,7 +52,7 @@ export const Card = (
             </div>
 
 
-            <a href={`/product/${_id}`} className="card__link">
+            <Link to={`/product/${_id}`} className="card__link">
                 <img src={pictures} alt={description} className="card__image" />
                 <div className="card__desc">
                     {!!discount && <span className="card__old-price">{price}₽</span>}
@@ -59,7 +61,7 @@ export const Card = (
                     <span className="card__wight">в наличии: {stock} шт</span>
                     <p className="card__name">{name}</p>
                 </div>
-            </a>
+            </Link>
             <a href="#" className="card__cart btn btn_type_primary">
                 В корзину
             </a>

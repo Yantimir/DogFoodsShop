@@ -3,7 +3,7 @@ const onResponse = (response) => {
 }
 
 const onError = (err) => {
-    alert("Что-то пошло не так!");
+    console.log(`Что-то пошло не так! ${err}`);
 }
 
 class Api {

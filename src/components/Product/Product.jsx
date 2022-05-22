@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import classNames from "classnames";
 
@@ -8,24 +9,39 @@ import quality from "./img/quality.svg";
 
 import { AppContext } from "../../context/appContext";
 
-export const Product = () => {
+
+export const Product = ({
+    _id,
+    name,
+    likes,
+    price,
+    discount,
+    wight,
+    description,
+    available,
+    pictures,
+    tags,
+    stock,
+    reviews
+}) => {
 
     const [count, setCount] = useState(0);
-    const { product, currentUser, handlerProductLike } = useContext(AppContext);
-    const  {
-        _id,
-        name,
-        likes,
-        price,
-        discount,
-        wight,
-        description,
-        available,
-        pictures,
-        tags,
-        stock,
-        reviews
-    } = product;
+    const { currentUser, handlerProductLike } = useContext(AppContext);
+    const navigate = useNavigate(); 
+    // const  {
+    //     _id,
+    //     name,
+    //     likes,
+    //     price,
+    //     discount,
+    //     wight,
+    //     description,
+    //     available,
+    //     pictures,
+    //     tags,
+    //     stock,
+    //     reviews
+    // } = product;
     // console.log(likes)
     const discount_price = Math.round(price - price * discount / 100);
     const isLiked = likes && likes?.some(id => id === currentUser?._id);
@@ -39,11 +55,15 @@ export const Product = () => {
         handlerProductLike({ productId, isLiked });
     }
 
+    function handlerClickBack() {
+        navigate(-1);
+    }
+
     return (
 
         <>
             <div>
-                <a href="" className="button-back">Hазад</a>
+                <a onClick={handlerClickBack} href="#" className="button-back">Hазад</a>
                 <h1 className={style.productTitle}>{name}</h1>
                 <div >
                     <span >Артикул: <b>2388907</b></span>
