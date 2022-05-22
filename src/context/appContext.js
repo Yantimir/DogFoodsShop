@@ -2,7 +2,7 @@ import React from "react";
 
 export const AppContext = React.createContext({
     cards: [],
-    product: [],
+    product: {},
     currentUser: {},
     searchQuery: "",
     isLoading: false,

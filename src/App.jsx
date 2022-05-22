@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Routes, Route } from "react-router-dom";
 import api from "./utils/Api";
 import { AppContext } from "./context/appContext";
 
@@ -10,10 +11,8 @@ import { Search } from "./components/Search/Search";
 import { SearchInfo } from "./components/SearchInfo/SearchInfo";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { ProductPage } from "./pages/ProductPage/ProductPage";
-// import { Sort } from "./components/Sort/Sort";
-// import Spinner from "./components/Spinner/Spinner";
-// import { Cards } from "./components/Cards/Cards";
 import { Footer } from "./components/Footer/Footer";
+
 
 const ID_PRODUCT = "622c77e877d63f6e70967d22";
 
@@ -34,10 +33,10 @@ export const App = () => {
                 api.getProductById(ID_PRODUCT)
             ]
         )
-            .then(([productData, userData]) => {
-                setCards(productData?.products);
+            .then(([productsData, userData, productData]) => {
+                setCards(productsData?.products);
                 setCurrentUser(userData);
-                setProduct(productData?.products);
+                setProduct(productData);
             })
             .catch(err => console.log(err))
     }, []);
@@ -106,13 +105,14 @@ export const App = () => {
                 </Header>
                 <div className="content container">
                     <SearchInfo />
-                    <CatalogPage />
-                    <ProductPage />
-                    {/* <Sort />
-                    <div className="content__cards">
-                        {isLoading && <Spinner />}
-                        <Cards />
-                    </div> */}
+                    <Routes>
+                        <Route path="/" element={
+                            <CatalogPage />
+                        } />
+                        <Route path="/product" element={
+                            <ProductPage />
+                        } />
+                    </Routes>
                 </div>
                 <Footer />
             </AppContext.Provider>

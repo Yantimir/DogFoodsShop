@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
+
 import { ReactComponent as Save } from "./img/save.svg";
 import truck from "./img/truck.svg";
 import quality from "./img/quality.svg";
@@ -11,16 +12,30 @@ export const Product = () => {
 
     const [count, setCount] = useState(0);
     const { product, currentUser, handlerProductLike } = useContext(AppContext);
-    console.log(product)
-    const discount_price = Math.round(product?.price - product?.price * product?.discount / 100);
-    const isLiked = product?.likes?.some(id => id === currentUser?._id);
+    const  {
+        _id,
+        name,
+        likes,
+        price,
+        discount,
+        wight,
+        description,
+        available,
+        pictures,
+        tags,
+        stock,
+        reviews
+    } = product;
+    // console.log(likes)
+    const discount_price = Math.round(price - price * discount / 100);
+    const isLiked = likes && likes?.some(id => id === currentUser?._id);
 
     function createMarkup() {
-        return { __html: product?.description };
+        return { __html: description };
     }
 
     function handlerLikeClick() {
-        const productId = product?._id;
+        const productId = _id;
         handlerProductLike({ productId, isLiked });
     }
 
@@ -29,20 +44,20 @@ export const Product = () => {
         <>
             <div>
                 <a href="" className="button-back">Hазад</a>
-                <h1 className={style.productTitle}>{product.name}</h1>
+                <h1 className={style.productTitle}>{name}</h1>
                 <div >
                     <span >Артикул: <b>2388907</b></span>
-                    <p>{product?.reviews?.length} отзывов</p>
+                    <p>{reviews?.length} отзывов</p>
                     {/*тут будут отзывы*/}
                 </div>
 
                 <div className={style.product}>
                     <div className={style.imgWrapper}>
-                        <img src={product?.pictures} alt={`Изабражение товара ${product?.name}`} />
+                        <img src={pictures} alt={`Изабражение товара ${name}`} />
                     </div>
                     <div className={style.desc}>
-                        <span className={!!product?.discount ? style.oldPrice : style.price}>{product?.price}₽</span>
-                        {!!product?.discount && <span className={classNames(style.price, style['price_type_discount'])}>{discount_price}₽</span>}
+                        <span className={!!discount ? style.oldPrice : style.price}>{price}₽</span>
+                        {!!discount && <span className={classNames(style.price, style['price_type_discount'])}>{discount_price}₽</span>}
                         <div className={style.btnWrap}>
                             <div className={style.btnLeft}>
                                 <button className={style.minus}> - </button>
@@ -81,7 +96,7 @@ export const Product = () => {
                         <div className={style.naming}>Вес</div>
                         <div>1 шт. 120-200 грамм</div>
                         <div className={style.naming}>Цена</div>
-                        <div> {product?.discount ? discount_price : product?.price} ₽ за 100 грамм</div>
+                        <div> {discount ? discount_price : price} ₽ за 100 грамм</div>
                         <div className={style.naming}>Польза</div>
                         <div className={style.description}>
                             <p>
