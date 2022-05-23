@@ -22,13 +22,13 @@ export const Card = (
         reviews
     }) => {
 
-    const { currentUser, handlerProductLike } = useContext(AppContext);
+    const { currentUser, handleProductLike } = useContext(AppContext);
     const discount_price = Math.round(price - price * discount / 100);
     const isLiked = likes?.some(id => id === currentUser?._id);
 
     function handlerLikeClick() {
         const productId = _id;
-        handlerProductLike({ productId, isLiked });
+        handleProductLike({ productId, isLiked });
     }
 
     return (

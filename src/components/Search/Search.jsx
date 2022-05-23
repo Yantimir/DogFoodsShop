@@ -7,18 +7,18 @@ import { ReactComponent as CloseIcon } from "./img/ic-close-input.svg";
 
 export const Search = () => {
 
-    const { handlerInputChange, handlerFormSubmit } = useContext(AppContext);
+    const { handleInputChange, handleFormSubmit } = useContext(AppContext);
 
-    const handlerForm = (e) => {
+    const handleForm = (e) => {
         e.preventDefault();
-        handlerFormSubmit && handlerFormSubmit(e.target.querySelector(".input__emMnZ")?.value)
+        handleFormSubmit && handleFormSubmit(e.target.querySelector(".input__emMnZ")?.value)
     }
 
     return (
         <>
-            <form className={style.search} onSubmit={handlerForm}>
+            <form className={style.search} onSubmit={handleForm}>
                 <input
-                    onInput={(e) => handlerInputChange && handlerInputChange(e.target.value)}
+                    onInput={(e) => handleInputChange && handleInputChange(e.target.value)}
                     type="text"
                     placeholder="Поиск"
                     className={style.input}

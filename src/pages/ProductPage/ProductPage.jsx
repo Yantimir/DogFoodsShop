@@ -1,32 +1,34 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useCallback, useContext } from "react";
 import api from "../../utils/Api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../context/appContext";
-
+import { useApi } from "../../hooks/useApi";
 import Spinner from "../../components/Spinner/Spinner";
+import { NotFound } from "./../../components/NotFound/NotFound";
 import { Product } from "../../components/Product/Product";
-
-
 
 
 export const ProductPage = () => {
 
-    const [product, setProduct] = useState([]);
-    const { isLoading, cards } = useContext(AppContext);
+    const { cards } = useContext(AppContext);
     const { productID } = useParams(); // получение ID из URL
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        api.getProductById(productID)
-            .then((productData) => {
-                setProduct(productData);
-            })
-            .catch((err) => console.log(err))
+    const handler = useCallback(() => {
+        return api.getProductById(productID);
     }, [productID, cards]);
-    
+
+    const { data: product, loading, error } = useApi(handler);
+
     return (
         <>
-            {isLoading && <Spinner />}
-            <Product {...product} />
+            {loading && <Spinner />}
+            {error && <NotFound
+                title="Товары не найдены"
+                buttonText="Назад"
+                buttonAction={() => navigate(-1)}
+            />}
+            {product && <Product {...product} />}
         </>
     );
 };

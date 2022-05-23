@@ -26,23 +26,8 @@ export const Product = ({
 }) => {
 
     const [count, setCount] = useState(0);
-    const { currentUser, handlerProductLike } = useContext(AppContext);
+    const { currentUser, handleProductLike } = useContext(AppContext);
     const navigate = useNavigate(); 
-    // const  {
-    //     _id,
-    //     name,
-    //     likes,
-    //     price,
-    //     discount,
-    //     wight,
-    //     description,
-    //     available,
-    //     pictures,
-    //     tags,
-    //     stock,
-    //     reviews
-    // } = product;
-    // console.log(likes)
     const discount_price = Math.round(price - price * discount / 100);
     const isLiked = likes && likes?.some(id => id === currentUser?._id);
 
@@ -50,12 +35,12 @@ export const Product = ({
         return { __html: description };
     }
 
-    function handlerLikeClick() {
+    function handleLikeClick() {
         const productId = _id;
-        handlerProductLike({ productId, isLiked });
+        handleProductLike({ productId, isLiked });
     }
 
-    function handlerClickBack() {
+    function handleClickBack() {
         navigate(-1);
     }
 
@@ -63,7 +48,7 @@ export const Product = ({
 
         <>
             <div>
-                <a onClick={handlerClickBack} href="#" className="button-back">Hазад</a>
+                <a onClick={handleClickBack} href="#" className="button-back">Hазад</a>
                 <h1 className={style.productTitle}>{name}</h1>
                 <div >
                     <span >Артикул: <b>2388907</b></span>
@@ -86,7 +71,7 @@ export const Product = ({
                             </div>
                             <a href="#" className={classNames("btn", "btn_type_primary", style.buttonCart)}>В корзину</a>
                         </div>
-                        <button onClick={handlerLikeClick} className={classNames(style.favorite, { [style.favoriteActive]: isLiked })}>
+                        <button onClick={handleLikeClick} className={classNames(style.favorite, { [style.favoriteActive]: isLiked })}>
                             <Save />
                             <span className={style.naming}>{isLiked ? "В избранном" : "В избранное"}</span>
                         </button>

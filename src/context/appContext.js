@@ -6,10 +6,10 @@ export const AppContext = React.createContext({
     currentUser: {},
     searchQuery: "",
     isLoading: false,
-    handlerInputChange: () => {},
-    handlerFormSubmit: () => {},
-    handlerUpdateUser: () => {},
-    handlerProductLike: () => {}
+    handleInputChange: () => {},
+    handleFormSubmit: () => {},
+    handleUpdateUser: () => {},
+    handleProductLike: () => {}
     // favorites: [],
 });
 

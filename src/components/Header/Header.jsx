@@ -7,11 +7,11 @@ import Button from "../Button/Button";
 
 export const Header = ({ children }) => {
 
-    const { currentUser: user, handlerUpdateUser } = useContext(AppContext);
+    const { currentUser: user, handleUpdateUser } = useContext(AppContext);
 
-    function handlerClickUpdateUser(e)  {
+    function handleClickUpdateUser(e)  {
         e.preventDefault();
-        handlerUpdateUser({name: "Мингазитдинов Янтимир", about: "покупатель"});
+        handleUpdateUser({name: "Мингазитдинов Янтимир", about: "FD"});
     }
 
     return (
@@ -26,7 +26,7 @@ export const Header = ({ children }) => {
                         {user.name && <div>{user.name}</div>}
                         {user.about && <div>{user.about}</div>}
                         {user.email && <div>{user.email}</div>}
-                        <Button handlerClick={handlerClickUpdateUser} type="secondary">Изменить</Button>
+                        <Button buttonAction={handleClickUpdateUser} type="secondary">Изменить</Button>
                     </div>
                 </div>
             </div>

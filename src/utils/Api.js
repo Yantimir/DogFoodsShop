@@ -3,7 +3,7 @@ const onResponse = (response) => {
 }
 
 const onError = (err) => {
-    console.log(`Что-то пошло не так! ${err}`);
+    console.log(`${err}`);
 }
 
 class Api {
@@ -30,7 +30,7 @@ class Api {
         return fetch(`${this._baseUrl}/products/${productId}`, {
             headers: this._headers,
         }).then(onResponse)
-            .catch(onError)
+            // .catch(onError)
     }
     // создание нового товара
     createNewProduct(productData) {
