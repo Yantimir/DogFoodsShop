@@ -17,9 +17,9 @@ import { Search } from "./components/Search/Search";
 import { SearchInfo } from "./components/SearchInfo/SearchInfo";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { ProductPage } from "./pages/ProductPage/ProductPage";
-import { Footer } from "./components/Footer/Footer";
+import { FaqPage } from "./pages/FaqPage/FaqPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
-// const ID_PRODUCT = "622c77e877d63f6e70967d22";
+import { Footer } from "./components/Footer/Footer";
 
 export const App = () => {
 
@@ -112,6 +112,9 @@ export const App = () => {
                         } />
                         <Route path="/product/:productID" element={
                             <ProductPage />
+                        } />
+                        <Route path="/faq" element={
+                            <FaqPage />
                         } />
                         <Route path="*" element={
                             <NotFoundPage />
