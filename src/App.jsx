@@ -64,7 +64,7 @@ export const App = () => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        handlerRequest();
+        handleRequest();
     }
     // ----------------------------------------------
 
@@ -86,6 +86,19 @@ export const App = () => {
             })
     }
 
+    // сортировка карточек товара
+    const handleChangeSort = (currentSort) => {
+        switch (currentSort) {
+            case "minPrice": setCards(cards.sort((a, b) => a.price - b.price));
+                break;
+            case "maxPrice": setCards(cards.sort((a, b) => b.price - a.price));
+                break;
+            case "sale": setCards(cards.sort((a, b) => b.discount - a.discount));
+                break;
+            default: setCards(cards.sort((a, b) => a.price - b.price));
+        }
+    }
+
     return (
         <>
             <AppContext.Provider value={
@@ -97,7 +110,8 @@ export const App = () => {
                     handleInputChange,
                     handleFormSubmit,
                     handleUpdateUser,
-                    handleProductLike
+                    handleProductLike,
+                    handleChangeSort
                 }
             }>
                 <Header>

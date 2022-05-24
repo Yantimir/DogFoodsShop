@@ -6,21 +6,23 @@
 	display: flex;
 	align-items: center;
 	gap: 16px;
+	margin-bottom: 30px;
 }
 
-.sort__link {
+.link {
 	text-decoration: none;
 	font-size: 14px;
 	line-height: 20px;
 	color: #7B8E98;
 	background-color: transparent;
 	border: none;
+	cursor: pointer;
 }
 
-.sort__link_selected {
+.link_selected {
 	color: #1A1A1A;
 }
 
-.sort__link:hover {
+.link:hover {
 	color: #1A1A1A;
 }

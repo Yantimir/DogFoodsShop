@@ -9,7 +9,8 @@ export const AppContext = React.createContext({
     handleInputChange: () => {},
     handleFormSubmit: () => {},
     handleUpdateUser: () => {},
-    handleProductLike: () => {}
+    handleProductLike: () => {},
+    handleChangeSort: () => {}
     // favorites: [],
 });
 
