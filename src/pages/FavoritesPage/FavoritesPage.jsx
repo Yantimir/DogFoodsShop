@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
-import { Cards } from "../../components/Cards/Cards";
-import Spinner from "../../components/Spinner/Spinner";
 import { AppContext } from "../../context/appContext";
+
+import { Cards } from "../../components/Cards/Cards";
+import { ContentHeader } from "../../components/ContentHeader/ContentHeader";
+import Spinner from "../../components/Spinner/Spinner";
+
 
 export const FavoritesPage = () => {
 
@@ -9,9 +12,10 @@ export const FavoritesPage = () => {
 
     return (
         <>
+            <ContentHeader title="Избранное"/>
             <div className="content__cards">
                 {isLoading && <Spinner />}
-                <Cards goods={favoritesCards}/>
+                <Cards goods={favoritesCards} />
             </div>
         </>
     );

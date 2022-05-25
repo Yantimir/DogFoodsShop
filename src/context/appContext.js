@@ -11,6 +11,7 @@ export const AppContext = React.createContext({
     handleFormSubmit: () => {},
     handleUpdateUser: () => {},
     handleProductLike: () => {},
+    clearSearch: () => {},
     handleChangeSort: () => {}
 });
 

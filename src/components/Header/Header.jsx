@@ -21,13 +21,14 @@ export const Header = ({ children }) => {
         <header className={style.header}>
             <div className={classnames(style.wrapper, "container")}>
                 {children}
-                <div className={style.iconsMenu}>
-                    <Link className={style.iconLink} to="/favorites">
-                        <FavoriteIcon />
-                        <span className={style.iconBubble}>{favoritesCards?.length}</span>
-                    </Link>
-                </div>
+
                 <div className={style.client}>
+                    <div className={style.iconsMenu}>
+                        <Link className={style.iconLink} to="/favorites">
+                            <FavoriteIcon />
+                            <span className={style.iconBubble}>{favoritesCards?.length}</span>
+                        </Link>
+                    </div>
                     <div className={style.avatar}>
                         {user.avatar && <img className={style.avatar} src={user.avatar} alt={user.avatar} />}
                     </div>

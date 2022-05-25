@@ -1,0 +1,14 @@
+.title {
+	margin-top: 0;
+	font-weight: 800;
+	font-size: 28px;
+	line-height: 1.5;
+	margin-bottom: 4px;
+}
+
+.buttonBack {
+    color: #7B8E98;
+    font-weight: 400;
+    font-style: 14px;
+    line-height: 3;
+}

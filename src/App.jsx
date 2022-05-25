@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 // API
 import api from "./utils/Api";
@@ -31,7 +31,9 @@ export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
-    console.log(favoritesCards.length)
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         Promise.all([api.getProductsList(), api.getUserInfo(),])
             .then(([productsData, userData]) => {
@@ -67,8 +69,9 @@ export const App = () => {
             })
     }, [delaySeachQuery])
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
+    const handleFormSubmit = (inputValue) => {
+        setSearchQuery(inputValue);
+        navigate("/");
         handleRequest();
     }
     // ----------------------------------------------
@@ -81,80 +84,83 @@ export const App = () => {
     }
 
     // установка/снятие лайка
-    const handleProductLike = ({ productId, isLiked }) => {
-        api.changeLikeStatus(productId, isLiked)
-            .then((newCard) => {
-                const newCardsState = cards.map(card => {
-                    return card._id === newCard?._id ? newCard : card;
+    const handleProductLike = ({ productId, isLike }) => {
+        api.changeLikeStatus(productId, isLike).then((newCard) => {
+            const newCardsState = cards.map(card => {
+                return card._id === newCard?._id ? newCard : card;
+            });
+
+            if (!isLike) {
+                setFavoritesCards(prevState => [...prevState, newCard]);
+            } else {
+                setFavoritesCards(prevState => {
+                    return prevState.filter(card => card._id !== newCard._id)
                 });
-                setCards(newCardsState);
-
-                if (!isLiked) {
-                    setFavoritesCards(prevState => [...prevState, newCard]);
-                } else {
-                    setFavoritesCards(prevState => { 
-                        return prevState.filter(card => card._id !== newCard._id)
-                    });
-    }
-
-})
-    }
-
-// сортировка карточек товара
-const handleChangeSort = (currentSort) => {
-    switch (currentSort) {
-        case "minPrice": setCards([...cards].sort((a, b) => a.price - b.price));
-            break;
-        case "maxPrice": setCards([...cards].sort((a, b) => b.price - a.price));
-            break;
-        case "sale": setCards([...cards].sort((a, b) => b.discount - a.discount));
-            break;
-        default: setCards([...cards].sort((a, b) => a.price - b.price));
-    }
-}
-
-return (
-    <>
-        <AppContext.Provider value={
-            {
-                cards,
-                favoritesCards,
-                currentUser,
-                searchQuery,
-                isLoading,
-                handleInputChange,
-                handleFormSubmit,
-                handleUpdateUser,
-                handleProductLike,
-                handleChangeSort
             }
-        }>
-            <Header>
-                <Logo />
-                <Search />
-            </Header>
-            <div className="content container">
-                <SearchInfo />
-                <Routes>
-                    <Route path="/" element={
-                        <CatalogPage />
-                    } />
-                    <Route path="/favorites" element={
-                        <FavoritesPage />
-                    } />
-                    <Route path="/product/:productID" element={
-                        <ProductPage />
-                    } />
-                    <Route path="/faq" element={
-                        <FaqPage />
-                    } />
-                    <Route path="*" element={
-                        <NotFoundPage />
-                    } />
-                </Routes>
-            </div>
-            <Footer />
-        </AppContext.Provider>
-    </>
-);
+            setCards(newCardsState);
+        })
+    }
+
+    const clearSearch = () => {
+        setSearchQuery("");
+    }
+
+    // сортировка карточек товара
+    const handleChangeSort = (currentSort) => {
+        switch (currentSort) {
+            case "minPrice": setCards([...cards].sort((a, b) => a.price - b.price));
+                break;
+            case "maxPrice": setCards([...cards].sort((a, b) => b.price - a.price));
+                break;
+            case "sale": setCards([...cards].sort((a, b) => b.discount - a.discount));
+                break;
+            default: setCards([...cards].sort((a, b) => a.price - b.price));
+        }
+    }
+
+    return (
+        <>
+            <AppContext.Provider value={
+                {
+                    cards,
+                    favoritesCards,
+                    currentUser,
+                    searchQuery,
+                    isLoading,
+                    handleInputChange,
+                    handleFormSubmit,
+                    handleUpdateUser,
+                    handleProductLike,
+                    clearSearch,
+                    handleChangeSort
+                }
+            }>
+                <Header>
+                    <Logo />
+                    <Search searchText={searchQuery}/>
+                </Header>
+                <div className="content container">
+                    <SearchInfo />
+                    <Routes>
+                        <Route path="/" element={
+                            <CatalogPage />
+                        } />
+                        <Route path="/favorites" element={
+                            <FavoritesPage />
+                        } />
+                        <Route path="/product/:productID" element={
+                            <ProductPage />
+                        } />
+                        <Route path="/faq" element={
+                            <FaqPage />
+                        } />
+                        <Route path="*" element={
+                            <NotFoundPage />
+                        } />
+                    </Routes>
+                </div>
+                <Footer />
+            </AppContext.Provider>
+        </>
+    );
 };
