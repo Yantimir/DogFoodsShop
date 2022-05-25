@@ -2,7 +2,8 @@ import React from "react";
 
 export const AppContext = React.createContext({
     cards: [],
-    product: {},
+    favoritesCards: [],
+    // product: {},
     currentUser: {},
     searchQuery: "",
     isLoading: false,
@@ -11,7 +12,6 @@ export const AppContext = React.createContext({
     handleUpdateUser: () => {},
     handleProductLike: () => {},
     handleChangeSort: () => {}
-    // favorites: [],
 });
 
 AppContext.displayName = "AppContext";

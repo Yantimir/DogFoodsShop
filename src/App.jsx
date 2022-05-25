@@ -16,29 +16,34 @@ import { Logo } from "./components/Logo/Logo";
 import { Search } from "./components/Search/Search";
 import { SearchInfo } from "./components/SearchInfo/SearchInfo";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
+import { FavoritesPage } from "./pages/FavoritesPage/FavoritesPage";
 import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { FaqPage } from "./pages/FaqPage/FaqPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Footer } from "./components/Footer/Footer";
 
+
 export const App = () => {
 
     const [cards, setCards] = useState([]);
+    const [favoritesCards, setFavoritesCards] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
-
+    console.log(favoritesCards.length)
     useEffect(() => {
-        Promise.all(
-            [
-                api.getProductsList(),
-                api.getUserInfo(),
-            ]
-        )
+        Promise.all([api.getProductsList(), api.getUserInfo(),])
             .then(([productsData, userData]) => {
                 setCards(productsData?.products);
                 setCurrentUser(userData);
+
+                const filteredData = productsData?.products?.filter(product =>
+                    product?.likes?.some(id =>
+                        id === userData._id
+                    )
+                );
+                setFavoritesCards(filteredData);
             })
             .catch(err => console.log(err))
     }, []);
@@ -83,60 +88,73 @@ export const App = () => {
                     return card._id === newCard?._id ? newCard : card;
                 });
                 setCards(newCardsState);
-            })
+
+                if (!isLiked) {
+                    setFavoritesCards(prevState => [...prevState, newCard]);
+                } else {
+                    setFavoritesCards(prevState => { 
+                        return prevState.filter(card => card._id !== newCard._id)
+                    });
     }
 
-    // сортировка карточек товара
-    const handleChangeSort = (currentSort) => {
-        switch (currentSort) {
-            case "minPrice": setCards(cards.sort((a, b) => a.price - b.price));
-                break;
-            case "maxPrice": setCards(cards.sort((a, b) => b.price - a.price));
-                break;
-            case "sale": setCards(cards.sort((a, b) => b.discount - a.discount));
-                break;
-            default: setCards(cards.sort((a, b) => a.price - b.price));
-        }
+})
     }
 
-    return (
-        <>
-            <AppContext.Provider value={
-                {
-                    cards,
-                    currentUser,
-                    searchQuery,
-                    isLoading,
-                    handleInputChange,
-                    handleFormSubmit,
-                    handleUpdateUser,
-                    handleProductLike,
-                    handleChangeSort
-                }
-            }>
-                <Header>
-                    <Logo />
-                    <Search />
-                </Header>
-                <div className="content container">
-                    <SearchInfo />
-                    <Routes>
-                        <Route path="/" element={
-                            <CatalogPage />
-                        } />
-                        <Route path="/product/:productID" element={
-                            <ProductPage />
-                        } />
-                        <Route path="/faq" element={
-                            <FaqPage />
-                        } />
-                        <Route path="*" element={
-                            <NotFoundPage />
-                        } />
-                    </Routes>
-                </div>
-                <Footer />
-            </AppContext.Provider>
-        </>
-    );
+// сортировка карточек товара
+const handleChangeSort = (currentSort) => {
+    switch (currentSort) {
+        case "minPrice": setCards([...cards].sort((a, b) => a.price - b.price));
+            break;
+        case "maxPrice": setCards([...cards].sort((a, b) => b.price - a.price));
+            break;
+        case "sale": setCards([...cards].sort((a, b) => b.discount - a.discount));
+            break;
+        default: setCards([...cards].sort((a, b) => a.price - b.price));
+    }
+}
+
+return (
+    <>
+        <AppContext.Provider value={
+            {
+                cards,
+                favoritesCards,
+                currentUser,
+                searchQuery,
+                isLoading,
+                handleInputChange,
+                handleFormSubmit,
+                handleUpdateUser,
+                handleProductLike,
+                handleChangeSort
+            }
+        }>
+            <Header>
+                <Logo />
+                <Search />
+            </Header>
+            <div className="content container">
+                <SearchInfo />
+                <Routes>
+                    <Route path="/" element={
+                        <CatalogPage />
+                    } />
+                    <Route path="/favorites" element={
+                        <FavoritesPage />
+                    } />
+                    <Route path="/product/:productID" element={
+                        <ProductPage />
+                    } />
+                    <Route path="/faq" element={
+                        <FaqPage />
+                    } />
+                    <Route path="*" element={
+                        <NotFoundPage />
+                    } />
+                </Routes>
+            </div>
+            <Footer />
+        </AppContext.Provider>
+    </>
+);
 };

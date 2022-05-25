@@ -31,7 +31,7 @@
     margin-top: 2px;
 }
 
-.button{
+/* .button{
     color: inherit;
 	padding: 10px 18px;
 	font-size: 16px;
@@ -43,8 +43,47 @@
 	display: inline-block;
 	transition: background-color .3s;
 	cursor: pointer;
+} */
+
+.iconsMenu {
+	display: flex;
+	gap: 20px;
 }
 
+.iconLink {
+	position: relative;
+	width: 32px;
+	height: 32px;
+}
+.iconsMenu svg{
+	width: 100%;
+	height: 100%;
+}
+
+.profileIcon {
+	position: relative;
+    margin: 0 10px;
+	width: 100%;
+	height: 100%;
+    color: black;
+}
+
+.iconBubble{
+	background-color: #01A54E;
+	border-radius: 50%;
+	color: #FFFFFF;
+	font-size: 14px;
+	width: 22px;
+	height: 22px;
+	line-height: 1.25;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 60%;
+	left: 70%;
+}
 /* .secondary {
 	background-color: var(--second-color);
     color: #fff;

@@ -21,7 +21,7 @@ const tabs = [
 
 export const CatalogPage = () => {
 
-    const { isLoading, handleChangeSort } = useContext(AppContext);
+    const { isLoading, handleChangeSort, cards } = useContext(AppContext);
 
     const handleClickSort = (data) => {
         handleChangeSort(data)
@@ -35,7 +35,7 @@ export const CatalogPage = () => {
             />
             <div className="content__cards">
                 {isLoading && <Spinner />}
-                <Cards />
+                <Cards goods={cards}/>
             </div>
         </>
     );
