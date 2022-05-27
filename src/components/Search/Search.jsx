@@ -17,17 +17,19 @@ export const Search = ({ searchText = "" }) => {
     
     const inputRef = useRef(null);
 
-    const handleForm = (e) => {
+    const handleFormSearchQuery = (e) => {
         e.preventDefault();
         // handleFormSubmit && handleFormSubmit(e.target.querySelector(".input__emMnZ")?.value)
         handleFormSubmit && handleFormSubmit(inputRef.current?.value);
     }
 
-    // handleClickClear(){ }
+    const handleClickSearchQuery = () => {
+        inputRef.current.style.color = "red";
+      }
 
     return (
         <>
-            <form className={style.search} onSubmit={handleForm}>
+            <form className={style.search} onSubmit={handleFormSearchQuery}>
                 <input
                     ref={inputRef}
                     onInput={(e) => handleInputChange && handleInputChange(e.target.value)}
@@ -38,10 +40,9 @@ export const Search = ({ searchText = "" }) => {
                 />
                 <button className={style.btn}>
                     {searchQuery === ""
-                        ? <SearchIcon />
+                        ? <SearchIcon onClick={handleClickSearchQuery}/>
                         : <CloseIcon onClick={clearSearch} />
                     }
-                    {/* {searchQuery === "" ? <SearchIcon onClick={handleClick} /> : <CloseIcon onClick={clearSearch} />} */}
                 </button>
             </form>
         </>

@@ -17,7 +17,7 @@ export const ProductPage = () => {
     const handler = useCallback(() => {
         return api.getProductById(productID);
     }, [productID, cards]);
-
+    
     const { data: product, loading, error } = useApi(handler);
 
     return (

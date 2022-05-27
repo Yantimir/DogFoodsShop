@@ -1,13 +1,9 @@
-.wrapper-spinner{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-
 .spinner {
 	display: inline-block;
-	margin: 150px;
+	position: absolute;
+	z-index: 1000;
+	top: 50%;
+	left: 50%;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;

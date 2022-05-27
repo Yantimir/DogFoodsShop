@@ -22,6 +22,10 @@ import { FaqPage } from "./pages/FaqPage/FaqPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Footer } from "./components/Footer/Footer";
 
+// import { SimpleForm } from "./components/SimpleForm/SimpleForm";
+// import { ContactList } from "./components/ContactList/ContactList";
+import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
+
 
 export const App = () => {
 
@@ -31,6 +35,11 @@ export const App = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
+    const [contacts, setContacts] = useState([]);
+
+    const addContacts = (contactInfo) => {
+        setContacts([...contacts, contactInfo]);
+    }
 
     const navigate = useNavigate();
 
@@ -74,6 +83,22 @@ export const App = () => {
         navigate("/");
         handleRequest();
     }
+    // очистка input поиска
+    const clearSearch = () => {
+        setSearchQuery("");
+    }
+    // сортировка карточек товара
+    const handleChangeSort = (currentSort) => {
+        switch (currentSort) {
+            case "minPrice": setCards([...cards].sort((a, b) => a.price - b.price));
+                break;
+            case "maxPrice": setCards([...cards].sort((a, b) => b.price - a.price));
+                break;
+            case "sale": setCards([...cards].sort((a, b) => b.discount - a.discount));
+                break;
+            default: setCards([...cards].sort((a, b) => a.price - b.price));
+        }
+    }
     // ----------------------------------------------
 
     // обновление информации о пользователе
@@ -101,46 +126,31 @@ export const App = () => {
         })
     }
 
-    const clearSearch = () => {
-        setSearchQuery("");
-    }
-
-    // сортировка карточек товара
-    const handleChangeSort = (currentSort) => {
-        switch (currentSort) {
-            case "minPrice": setCards([...cards].sort((a, b) => a.price - b.price));
-                break;
-            case "maxPrice": setCards([...cards].sort((a, b) => b.price - a.price));
-                break;
-            case "sale": setCards([...cards].sort((a, b) => b.discount - a.discount));
-                break;
-            default: setCards([...cards].sort((a, b) => a.price - b.price));
-        }
-    }
-
     return (
         <>
-            <AppContext.Provider value={
-                {
-                    cards,
-                    favoritesCards,
-                    currentUser,
-                    searchQuery,
-                    isLoading,
-                    handleInputChange,
-                    handleFormSubmit,
-                    handleUpdateUser,
-                    handleProductLike,
-                    clearSearch,
-                    handleChangeSort
-                }
-            }>
+            <AppContext.Provider value={{
+                cards,
+                favoritesCards,
+                currentUser,
+                searchQuery,
+                isLoading,
+                contacts,
+                handleInputChange,
+                handleFormSubmit,
+                handleUpdateUser,
+                handleProductLike,
+                clearSearch,
+                handleChangeSort
+            }}>
                 <Header>
                     <Logo />
-                    <Search searchText={searchQuery}/>
+                    <Search searchText={searchQuery} />
                 </Header>
                 <div className="content container">
+                    {/* <SimpleForm addContacts={addContacts}/> */}
+                    {/* <ContactList /> */}
                     <SearchInfo />
+                    <RegistrationForm />
                     <Routes>
                         <Route path="/" element={
                             <CatalogPage />

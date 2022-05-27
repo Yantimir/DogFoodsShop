@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/appContext";
 import { Sort } from "../../components/Sort/Sort";
-import Spinner from "../../components/Spinner/Spinner";
+// import Spinner from "../../components/Spinner/Spinner";
 import { Cards } from "../../components/Cards/Cards";
 
 const tabs = [

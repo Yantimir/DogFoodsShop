@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import ContentLoader from "react-content-loader"; // skeleton
 import { isLiked } from "../../utils/utils";
+
 import "./style.css";
 import classnames from "classnames";
 import { ReactComponent as Save } from "./img/save.svg";
-import ContentLoader from "react-content-loader";
 
 import { AppContext } from "../../context/appContext";
-
 
 export const Card = (
     {
@@ -28,7 +28,6 @@ export const Card = (
     const { currentUser, handleProductLike, isLoading } = useContext(AppContext);
     const discount_price = Math.round(price - price * discount / 100);
     const isLike = likes && isLiked(likes, currentUser._id);
-
 
     function handlerLikeClick() {
         const productId = _id;

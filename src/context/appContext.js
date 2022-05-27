@@ -7,6 +7,7 @@ export const AppContext = React.createContext({
     currentUser: {},
     searchQuery: "",
     isLoading: false,
+    contacts: [],
     handleInputChange: () => {},
     handleFormSubmit: () => {},
     handleUpdateUser: () => {},
