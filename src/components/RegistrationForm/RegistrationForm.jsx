@@ -53,7 +53,7 @@ export const RegistrationForm = () => {
             </div>
             <Button
                 type="secondary"
-            >Отправить
+            >Зарегестрироваться
             </Button>
         </form>
     );

@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../context/appContext";
+import React from "react";
 
-export const ContactList = () => {
 
-    const { contacts } = useContext(AppContext);
+export const ContactList = ({ contacts }) => {
 
     return (
         <div>

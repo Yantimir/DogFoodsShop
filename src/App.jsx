@@ -25,6 +25,7 @@ import { Footer } from "./components/Footer/Footer";
 // import { SimpleForm } from "./components/SimpleForm/SimpleForm";
 // import { ContactList } from "./components/ContactList/ContactList";
 import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
+import { Modal } from "./components/Modal/Modal";
 
 
 export const App = () => {
@@ -36,6 +37,7 @@ export const App = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
     const [contacts, setContacts] = useState([]);
+    const [modalActive, setModalActive] = useState(false);
 
     const addContacts = (contactInfo) => {
         setContacts([...contacts, contactInfo]);
@@ -134,7 +136,6 @@ export const App = () => {
                 currentUser,
                 searchQuery,
                 isLoading,
-                contacts,
                 handleInputChange,
                 handleFormSubmit,
                 handleUpdateUser,
@@ -148,9 +149,16 @@ export const App = () => {
                 </Header>
                 <div className="content container">
                     {/* <SimpleForm addContacts={addContacts}/> */}
-                    {/* <ContactList /> */}
+                    {/* <ContactList contacts={contacts}/> */}
+                    <button onClick={() => setModalActive(true)}>Open modal</button>
                     <SearchInfo />
-                    <RegistrationForm />
+                    {/* <RegistrationForm /> */}
+                    <Modal
+                        active={modalActive}
+                        setActive={setModalActive}
+                    >
+                        <RegistrationForm />
+                    </Modal>
                     <Routes>
                         <Route path="/" element={
                             <CatalogPage />
