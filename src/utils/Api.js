@@ -67,17 +67,19 @@ class Api {
             .catch(onError)
     }
     // добавление отзыва по id
-    addReview(reviewData, productId) {
-        return fetch(`${this._baseUrl}/review/${productId}`, {
+    addReview({name, city, rating, text}, productId) {
+        return fetch(`${this._baseUrl}/products/review/${productId}`, {
             method: "POST",
             headers: this._headers,
-            body: JSON.stringify(reviewData),
+            body: JSON.stringify({
+                name, city, rating, text
+            }),
         }).then(onResponse)
             .catch(onError)
     }
     // удаление отзыва по id
     deleteReview(productId, reviewId) {
-        return fetch(`${this._baseUrl}/review/${productId}/${reviewId}`, {
+        return fetch(`${this._baseUrl}/products/review/${productId}/${reviewId}`, {
             method: "DELETE",
             headers: this._headers,
         }).then(onResponse)

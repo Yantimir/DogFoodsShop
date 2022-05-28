@@ -151,17 +151,18 @@ export const App = () => {
                     <Search searchText={searchQuery} />
                 </Header>
                 <div className="content container">
+                    <SearchInfo />
                     {/* <SimpleForm addContacts={addContacts}/> */}
                     {/* <ContactList contacts={contacts}/> */}
-                    <button onClick={() => setModalActive(true)}>Open modal</button>
-                    <SearchInfo />
+                    {/* <button onClick={() => setModalActive(true)}>Open modal</button> */}
+
                     {/* <RegistrationForm /> */}
-                    <Modal
+                    {/* <Modal
                         active={modalActive}
                         setActive={setModalActive}
                     >
                         <RegistrationForm />
-                    </Modal>
+                    </Modal> */}
                     <Routes>
                         <Route path="/" element={
                             <CatalogPage />

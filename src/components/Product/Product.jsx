@@ -11,9 +11,7 @@ import quality from "./img/quality.svg";
 import { ContentHeader } from "../ContentHeader/ContentHeader";
 import { Rating } from "../Rating/Rating";
 import { ProductReviews } from "../ProductReviews/ProductReviews";
-// import { ConsoleSqlOutlined } from "@ant-design/icons";
-
-
+import { FormReview } from "../FormReview/FormReview";
 
 export const Product = ({
     _id,
@@ -125,7 +123,7 @@ export const Product = ({
                 <h3 className={style.title}>Отзывы</h3>
                 <ProductReviews reviews={reviews} />
             </div>
-
+            <FormReview productId={_id}/>
         </>
     );
 };

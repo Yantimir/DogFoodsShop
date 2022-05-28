@@ -243,22 +243,6 @@
 	fill: #F44336;
 }
 
-.number-of-likes {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	right: 3px;
-	top: 7px;
-	background-color: #F44336;
-	height: 16px;
-	width: 16px;
-	border-radius: 20px;
-	border: 1px solid #7B8E98;
-	color: #ffffff;
-	font-weight: bold;
-	font-size: 10px;
-}
 
 @media (max-width: 1000px) {
 	.product {

@@ -1,0 +1,31 @@
+.inputForm {
+    padding: 5px;
+    display: block;
+    margin: 20px 0 0 0;
+    width: 100%;
+}
+
+.errorMessage {
+    text-align: end;
+    color: red;
+    font-size: 10px;
+    margin-top: 0;
+}
+
+.form {
+    max-width: 400px;
+    display: inline-block;
+}
+
+.rating {
+    display: flex;
+    margin-top: 20px;
+}
+
+.rating p{
+    margin: 0 15px 0 0;
+}
+
+.buttonForm {
+    margin-top: 20px;
+}

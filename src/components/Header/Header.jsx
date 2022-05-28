@@ -14,7 +14,7 @@ export const Header = ({ children }) => {
 
     function handleClickUpdateUser(e) {
         e.preventDefault();
-        handleUpdateUser({ name: "Мингазитдинов Янтимир", about: "покупатель" });
+        handleUpdateUser({ name: "Янтимир", about: "покупатель" });
     }
 
     return (

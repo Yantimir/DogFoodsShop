@@ -1,11 +1,26 @@
-.reviews{
+.reviews {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .author {
+    display: flex;
+    align-items: center;
     margin-right: 20px;
+}
+
+.user {
     padding-left: 20px;
+}
+
+.userName {
+    font-weight: 800;
+}
+
+.about {
+    font-size: 16px;
+    line-height: 20px;
+    color: #7b8e98;
 }
 
 .text p {
@@ -13,7 +28,7 @@
 }
 
 .avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
 }

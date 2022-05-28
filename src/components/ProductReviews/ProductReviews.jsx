@@ -4,39 +4,39 @@ import { AppContext } from "../../context/appContext";
 
 import { Rating } from "../Rating/Rating";
 
-{/* <div className={style.avatar}>
-    {user.avatar && <img className={style.avatar} src={user.avatar} alt={user.avatar} />}
-</div> */}
-
 export const ProductReviews = ({ reviews }) => {
 
     const { users } = useContext(AppContext);
-    console.log(users)
 
+    console.log(reviews)
     return (
         <div>
             {reviews?.map((rev) => (
                 <div key={rev._id} className={style.reviews}>
-                    {/* <div className={style.author}>{rev.author}</div> */}
                     {users?.map((user) => (
-                        <div>
+                        <div key={user._id}>
                             {user._id === rev.author
                                 && <div className={style.author}>
                                     <img className={style.avatar} src={user.avatar} alt={user.avatar} />
+                                    <div className={style.user}>
+                                        <div className={style.userName}>{user.name}</div>
+                                        <div className={style.about}>{user.about}</div>
+                                    </div>
+
                                 </div>
                             }
-                </div>
-            ))}
-            <div className={style.text}>
-                <Rating />
-                <p>
-                    {rev.text}
-                </p>
+                        </div>
+                    ))}
+                    <div className={style.text}>
+                        <Rating />
+                        <p>
+                            {rev.text}
+                        </p>
 
-            </div>
-        </div>
-    ))
-}
+                    </div>
+                </div>
+            ))
+            }
         </div >
     );
 }
