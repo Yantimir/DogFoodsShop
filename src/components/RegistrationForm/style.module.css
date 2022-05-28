@@ -1,7 +1,7 @@
 .inputForm {
     padding: 5px;
     display: block;
-    margin: 5px 0;
+    margin: 20px 0 0 0;
     width: 100%;
 }
 
@@ -15,4 +15,8 @@
 .form {
     max-width: 400px;
     display: inline-block;
+}
+
+.buttonForm {
+    margin-top: 20px;
 }

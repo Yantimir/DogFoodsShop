@@ -51,10 +51,12 @@ export const RegistrationForm = () => {
             <div>
                 {errors?.password && <p className={style.errorMessage}>{errors?.password?.message}</p>}
             </div>
-            <Button
-                type="secondary"
-            >Зарегестрироваться
-            </Button>
+            <div className={style.buttonForm}>
+                <Button
+                    type="secondary"
+                >Зарегестрироваться
+                </Button>
+            </div>
         </form>
     );
 }

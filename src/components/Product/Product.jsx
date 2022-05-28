@@ -2,13 +2,14 @@ import React, { useState, useContext } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { isLiked } from "../../utils/utils";
+import { AppContext } from "../../context/appContext";
 
 import { ReactComponent as Save } from "./img/save.svg";
 import truck from "./img/truck.svg";
 import quality from "./img/quality.svg";
 
-import { AppContext } from "../../context/appContext";
 import { ContentHeader } from "../ContentHeader/ContentHeader";
+import { Rating } from "../Rating/Rating";
 
 
 
@@ -32,7 +33,7 @@ export const Product = ({
 
     const discount_price = Math.round(price - price * discount / 100);
     const isLike = likes && isLiked(likes, currentUser?._id);
-    
+
     function createMarkup() {
         return { __html: description };
     }
@@ -48,10 +49,10 @@ export const Product = ({
 
         <>
             <ContentHeader title={name}>
-                <div >
+                <div className={style.productInfo}>
                     <span >Артикул: <b>2388907</b></span>
+                    <Rating rating={3} />
                     <p>{reviews?.length} отзывов</p>
-                    {/*тут будут отзывы*/}
                 </div>
             </ContentHeader>
 
