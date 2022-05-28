@@ -1,0 +1,19 @@
+.reviews{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.author {
+    margin-right: 20px;
+    padding-left: 20px;
+}
+
+.text p {
+    margin: 0;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}

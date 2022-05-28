@@ -10,6 +10,8 @@ import quality from "./img/quality.svg";
 
 import { ContentHeader } from "../ContentHeader/ContentHeader";
 import { Rating } from "../Rating/Rating";
+import { ProductReviews } from "../ProductReviews/ProductReviews";
+// import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 
 
@@ -27,7 +29,7 @@ export const Product = ({
     stock,
     reviews
 }) => {
-
+    
     const [count, setCount] = useState(0);
     const { currentUser, handleProductLike } = useContext(AppContext);
 
@@ -121,6 +123,7 @@ export const Product = ({
                     </div>
                 </div>
                 <h3 className={style.title}>Отзывы</h3>
+                <ProductReviews reviews={reviews} />
             </div>
 
         </>

@@ -4,6 +4,7 @@ export const AppContext = React.createContext({
     cards: [],
     favoritesCards: [],
     // product: {},
+    users: [],
     currentUser: {},
     searchQuery: "",
     isLoading: false,

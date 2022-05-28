@@ -32,6 +32,7 @@ export const App = () => {
 
     const [cards, setCards] = useState([]);
     const [favoritesCards, setFavoritesCards] = useState([]);
+    const [users, setUsers] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -46,10 +47,11 @@ export const App = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        Promise.all([api.getProductsList(), api.getUserInfo(),])
-            .then(([productsData, userData]) => {
+        Promise.all([api.getProductsList(), api.getUserInfo(), api.getAllUsers()])
+            .then(([productsData, userData, usersData]) => {
                 setCards(productsData?.products);
                 setCurrentUser(userData);
+                setUsers(usersData);
 
                 const filteredData = productsData?.products?.filter(product =>
                     product?.likes?.some(id =>
@@ -133,6 +135,7 @@ export const App = () => {
             <AppContext.Provider value={{
                 cards,
                 favoritesCards,
+                users,
                 currentUser,
                 searchQuery,
                 isLoading,
