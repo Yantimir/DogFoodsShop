@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import api from "../../utils/Api";
+import { AppContext } from "../../context/appContext";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 
 import Button from "../Button/Button";
 import { Rating } from "../Rating/Rating";
 
-export const FormReview = ({ productId }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+
+export const FormReview = ({ productId, addReviews }) => {
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         mode: "onBlur"
     });
 
@@ -16,7 +19,10 @@ export const FormReview = ({ productId }) => {
 
     function handleFormSubmit(data) {
         api.addReview({ ...data, rating }, productId)
-            .then((newReview) => console.log(newReview))
+            .then((newReview) => {
+                addReviews(newReview);
+                reset();
+            })
     }
 
     return (

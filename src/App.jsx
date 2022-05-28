@@ -134,6 +134,7 @@ export const App = () => {
         <>
             <AppContext.Provider value={{
                 cards,
+                setCards,
                 favoritesCards,
                 users,
                 currentUser,

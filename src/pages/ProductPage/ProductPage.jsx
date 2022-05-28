@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import api from "../../utils/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../context/appContext";
@@ -13,22 +13,43 @@ export const ProductPage = () => {
     const { cards } = useContext(AppContext);
     const { productID } = useParams(); // получение ID из URL
     const navigate = useNavigate();
+    const [productData, setProductData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false)
 
-    const handler = useCallback(() => {
-        return api.getProductById(productID);
+    // const handler = useCallback(() => {
+    //     return api.getProductById(productID);
+    // }, [productID, cards]);
+    // const { data: product, loading, error } = useApi(handler);
+
+    function handleFormReviews(dataProduct) {
+        setProductData(dataProduct);
+    }
+
+    useEffect(() => {
+        setIsLoading(true);
+        api.getProductById(productID)
+            .then((dataProduct) => {
+                setProductData(dataProduct);
+            })
+            .catch(() => setIsError(true))
+            .finally(() => setIsLoading(false))
     }, [productID, cards]);
-    
-    const { data: product, loading, error } = useApi(handler);
+
 
     return (
         <>
-            {loading && <Spinner />}
-            {error && <NotFound
+            {isLoading && <Spinner />}
+            {isError && <NotFound
                 title="Товары не найдены"
                 buttonText="Назад"
                 buttonAction={() => navigate(-1)}
             />}
-            {product && <Product {...product} />}
+            {productData && !isError
+                && <Product
+                    {...productData}
+                    addReviews={handleFormReviews}
+                />}
         </>
     );
 };

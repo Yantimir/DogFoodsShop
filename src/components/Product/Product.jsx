@@ -25,9 +25,10 @@ export const Product = ({
     pictures,
     tags,
     stock,
-    reviews
+    reviews,
+    addReviews
 }) => {
-    
+
     const [count, setCount] = useState(0);
     const { currentUser, handleProductLike } = useContext(AppContext);
 
@@ -43,7 +44,9 @@ export const Product = ({
         handleProductLike({ productId, isLike });
     }
 
-
+    const ratingSumm = Math.round(reviews?.map(review => review.rating).reduce((acc, item) => {
+        return acc += item;
+    }, 0) / reviews?.length)
 
     return (
 
@@ -51,7 +54,7 @@ export const Product = ({
             <ContentHeader title={name}>
                 <div className={style.productInfo}>
                     <span >Артикул: <b>2388907</b></span>
-                    <Rating rating={3} />
+                    <Rating rating={ratingSumm} />
                     <p>{reviews?.length} отзывов</p>
                 </div>
             </ContentHeader>
@@ -123,7 +126,7 @@ export const Product = ({
                 <h3 className={style.title}>Отзывы</h3>
                 <ProductReviews reviews={reviews} />
             </div>
-            <FormReview productId={_id}/>
+            <FormReview productId={_id} addReviews={addReviews} />
         </>
     );
 };

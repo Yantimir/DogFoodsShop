@@ -8,14 +8,13 @@ export const ProductReviews = ({ reviews }) => {
 
     const { users } = useContext(AppContext);
 
-    console.log(reviews)
     return (
         <div>
-            {reviews?.map((rev) => (
-                <div key={rev._id} className={style.reviews}>
+            {reviews?.map((review) => (
+                <div key={review?._id} className={style.reviews}>
                     {users?.map((user) => (
                         <div key={user._id}>
-                            {user._id === rev.author
+                            {user._id === review?.author
                                 && <div className={style.author}>
                                     <img className={style.avatar} src={user.avatar} alt={user.avatar} />
                                     <div className={style.user}>
@@ -28,11 +27,10 @@ export const ProductReviews = ({ reviews }) => {
                         </div>
                     ))}
                     <div className={style.text}>
-                        <Rating />
+                        <Rating rating={review?.rating}/>
                         <p>
-                            {rev.text}
+                            {review?.text}
                         </p>
-
                     </div>
                 </div>
             ))

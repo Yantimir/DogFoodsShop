@@ -26,7 +26,6 @@ export const Rating = ({ isEditable = false, rating, setRating }) => {
                 />
             );
         });
-
         setRatingArray(updateArray);
     }
 
