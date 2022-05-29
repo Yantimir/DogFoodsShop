@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import classNames from "classnames";
 import { isLiked } from "../../utils/utils";
 import { AppContext } from "../../context/appContext";
+import { Link } from 'react-scroll';
 
 import { ReactComponent as Save } from "./img/save.svg";
 import truck from "./img/truck.svg";
@@ -31,9 +32,13 @@ export const Product = ({
 
     const [count, setCount] = useState(0);
     const { currentUser, handleProductLike } = useContext(AppContext);
-
+    const wordDeclensionResult = wordDeclension(reviews?.length, ["отзыв", "отзыва", "отзывов"]);
     const discount_price = Math.round(price - price * discount / 100);
     const isLike = likes && isLiked(likes, currentUser?._id);
+    const ratingSumm = Math.round(reviews?.map(review => review.rating).reduce((acc, item) => {
+        return acc += item;
+    }, 0) / reviews?.length);
+
 
     function createMarkup() {
         return { __html: description };
@@ -44,44 +49,14 @@ export const Product = ({
         handleProductLike({ productId, isLike });
     }
 
-    const ratingSumm = Math.round(reviews?.map(review => review.rating).reduce((acc, item) => {
-        return acc += item;
-    }, 0) / reviews?.length)
-
-
-    // function wordDeclension() {
-    //     const reviewsLength = reviews?.length;
-    //     let wordDeclensionResult = "";
-    //     if (reviewsLength === 0 ||
-    //         reviewsLength >= 5 && reviewsLength <= 20 ||
-    //         reviewsLength >= 25 && reviewsLength <= 30
-    //     ) {
-    //         wordDeclensionResult = `${reviews?.length} отзывов`;
-    //     }
-    //     if (reviewsLength === 1 ||
-    //         reviewsLength === 21 ||
-    //         reviewsLength === 31
-    //     ) {
-    //         wordDeclensionResult = `${reviews?.length} отзыв`;
-    //     }
-    //     if (reviewsLength >= 2 && reviewsLength <= 4 ||
-    //         reviewsLength >= 22 && reviewsLength <= 24 ||
-    //         reviewsLength >= 32 && reviewsLength <= 34
-    //     ) {
-    //         wordDeclensionResult = `${reviews?.length} отзыва`;
-    //     }
-    //     return wordDeclensionResult;
-    // }
-
-    function wordDeclension(value, words){  
-        value = Math.abs(value) % 100; 
-        var num = value % 10;
-        if(value > 10 && value < 20) return words[2]; 
-        if(num > 1 && num < 5) return words[1];
-        if(num == 1) return words[0]; 
+    function wordDeclension(value, words) {
+        value = Math.abs(value) % 100;
+        let num = value % 10;
+        if (value > 10 && value < 20) return words[2];
+        if (num > 1 && num < 5) return words[1];
+        if (num == 1) return words[0];
         return words[2];
     }
-    const wordDeclensionResult = wordDeclension(reviews?.length, ["отзыв", "отзыва", "отзывов"]);
 
     return (
         <>
@@ -89,7 +64,14 @@ export const Product = ({
                 <div className={style.productInfo}>
                     <span >Артикул: <b>2388907</b></span>
                     <Rating rating={ratingSumm} />
-                    <p>{`${reviews?.length} ${wordDeclensionResult}`}</p>
+                    <Link
+                        className={style.linkReviews}
+                        to="reviews"
+                        smooth={true}
+                        duration={400}
+                    >
+                        {`${reviews?.length} ${wordDeclensionResult}`}
+                    </Link>
                 </div>
             </ContentHeader>
 
@@ -157,7 +139,7 @@ export const Product = ({
                         <p>Следует учесть высокую калорийность продукта.</p>
                     </div>
                 </div>
-                <h3 className={style.title}>Отзывы</h3>
+                <h3 id="reviews" className={style.title}>Отзывы</h3>
                 <ProductReviews reviews={reviews} />
             </div>
             <FormReview productId={_id} addReviews={addReviews} />

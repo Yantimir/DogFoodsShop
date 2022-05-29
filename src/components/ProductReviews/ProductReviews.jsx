@@ -11,8 +11,7 @@ import { Rating } from "../Rating/Rating";
 export const ProductReviews = ({ reviews }) => {
 
     const { users } = useContext(AppContext);
-    // const dataCreated = dayjs(review?.created_at).format("DD MMMM YYYY HH:mm");
-    // console.log(reviews)
+
     return (
         <div>
             {reviews?.map((review) => (
