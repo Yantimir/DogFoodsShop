@@ -2,12 +2,17 @@ import React, { useContext } from "react";
 import style from "./style.module.css";
 import { AppContext } from "../../context/appContext";
 
+import dayjs from "dayjs"; // yarn add dayjs
+import "dayjs/locale/ru"
+dayjs.locale("ru");
+
 import { Rating } from "../Rating/Rating";
 
 export const ProductReviews = ({ reviews }) => {
 
     const { users } = useContext(AppContext);
-
+    // const dataCreated = dayjs(review?.created_at).format("DD MMMM YYYY HH:mm");
+    // console.log(reviews)
     return (
         <div>
             {reviews?.map((review) => (
@@ -31,6 +36,9 @@ export const ProductReviews = ({ reviews }) => {
                         <p>
                             {review?.text}
                         </p>
+                        <div className={style.about}>
+                            {dayjs(review?.created_at).format("DD MMMM YYYY HH:mm")}
+                        </div>
                     </div>
                 </div>
             ))
