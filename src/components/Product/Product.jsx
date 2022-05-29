@@ -48,14 +48,48 @@ export const Product = ({
         return acc += item;
     }, 0) / reviews?.length)
 
-    return (
 
+    // function wordDeclension() {
+    //     const reviewsLength = reviews?.length;
+    //     let wordDeclensionResult = "";
+    //     if (reviewsLength === 0 ||
+    //         reviewsLength >= 5 && reviewsLength <= 20 ||
+    //         reviewsLength >= 25 && reviewsLength <= 30
+    //     ) {
+    //         wordDeclensionResult = `${reviews?.length} отзывов`;
+    //     }
+    //     if (reviewsLength === 1 ||
+    //         reviewsLength === 21 ||
+    //         reviewsLength === 31
+    //     ) {
+    //         wordDeclensionResult = `${reviews?.length} отзыв`;
+    //     }
+    //     if (reviewsLength >= 2 && reviewsLength <= 4 ||
+    //         reviewsLength >= 22 && reviewsLength <= 24 ||
+    //         reviewsLength >= 32 && reviewsLength <= 34
+    //     ) {
+    //         wordDeclensionResult = `${reviews?.length} отзыва`;
+    //     }
+    //     return wordDeclensionResult;
+    // }
+
+    function wordDeclension(value, words){  
+        value = Math.abs(value) % 100; 
+        var num = value % 10;
+        if(value > 10 && value < 20) return words[2]; 
+        if(num > 1 && num < 5) return words[1];
+        if(num == 1) return words[0]; 
+        return words[2];
+    }
+    const wordDeclensionResult = wordDeclension(reviews?.length, ["отзыв", "отзыва", "отзывов"]);
+
+    return (
         <>
             <ContentHeader title={name}>
                 <div className={style.productInfo}>
                     <span >Артикул: <b>2388907</b></span>
                     <Rating rating={ratingSumm} />
-                    <p>{reviews?.length} отзывов</p>
+                    <p>{`${reviews?.length} ${wordDeclensionResult}`}</p>
                 </div>
             </ContentHeader>
 
