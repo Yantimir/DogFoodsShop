@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 
 
-export const RegistrationForm = () => {
+export const AuthForm = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur"
@@ -17,8 +17,8 @@ export const RegistrationForm = () => {
 
     return (
         <form className={style.form} onSubmit={handleSubmit(handleFormSubmit)}>
-            <h3>Регистрация</h3>
-            <input
+            <h3>Авторизация</h3>
+            {/* <input
                 className={style.inputForm}
                 type="text"
                 {...register("name", {
@@ -29,7 +29,7 @@ export const RegistrationForm = () => {
             />
             <div>
                 {errors?.name && <p className={style.errorMessage}>{errors?.name?.message}</p>}
-            </div>
+            </div> */}
             <input
                 className={style.inputForm}
                 type="text"
@@ -54,7 +54,7 @@ export const RegistrationForm = () => {
             <div className={style.buttonForm}>
                 <Button
                     type="secondary"
-                >Зарегестрироваться
+                >Войти
                 </Button>
             </div>
         </form>

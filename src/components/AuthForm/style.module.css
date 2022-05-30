@@ -3,9 +3,6 @@
     display: block;
     margin: 20px 0 0 0;
     width: 100%;
-	resize: vertical;
-	max-width: 800px;
-	height: 150px;
 }
 
 .errorMessage {
@@ -18,15 +15,6 @@
 .form {
     max-width: 400px;
     display: inline-block;
-}
-
-.rating {
-    display: flex;
-    margin-top: 20px;
-}
-
-.rating p{
-    margin: 0 15px 0 0;
 }
 
 .buttonForm {

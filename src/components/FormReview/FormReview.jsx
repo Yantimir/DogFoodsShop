@@ -23,12 +23,13 @@ export const FormReview = ({ productId, addReviews }) => {
                 addReviews(newReview);
                 reset();
             })
+            .catch((err) => console.log(err))
     }
 
     return (
         <form className={style.form} onSubmit={handleSubmit(handleFormSubmit)}>
             <h3>Оставить отзыв</h3>
-            <input
+            {/* <input
                 className={style.inputForm}
                 type="text"
                 {...register("name", {
@@ -36,8 +37,8 @@ export const FormReview = ({ productId, addReviews }) => {
                 })}
                 id="name"
                 placeholder="Ваше имя"
-            />
-            <div>
+            /> */}
+            {/* <div>
                 {errors?.name && <p className={style.errorMessage}>{errors?.name?.message}</p>}
             </div>
             <input
@@ -47,7 +48,7 @@ export const FormReview = ({ productId, addReviews }) => {
                 id="city"
                 placeholder="Ваш город"
 
-            />
+            /> */}
             <textarea
                 className={style.inputForm}
                 type="text"

@@ -35,7 +35,7 @@ export const Product = ({
     const wordDeclensionResult = wordDeclension(reviews?.length, ["отзыв", "отзыва", "отзывов"]);
     const discount_price = Math.round(price - price * discount / 100);
     const isLike = likes && isLiked(likes, currentUser?._id);
-    const ratingSumm = Math.round(reviews?.map(review => review.rating).reduce((acc, item) => {
+    const ratingSum = Math.round(reviews?.map(review => review.rating).reduce((acc, item) => {
         return acc += item;
     }, 0) / reviews?.length);
 
@@ -63,7 +63,7 @@ export const Product = ({
             <ContentHeader title={name}>
                 <div className={style.productInfo}>
                     <span >Артикул: <b>2388907</b></span>
-                    <Rating rating={ratingSumm} />
+                    <Rating rating={ratingSum} />
                     <Link
                         className={style.linkReviews}
                         to="reviews"

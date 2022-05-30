@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation, Link } from "react-router-dom";
 
 // API
 import api from "./utils/Api";
@@ -21,11 +21,9 @@ import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { FaqPage } from "./pages/FaqPage/FaqPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Footer } from "./components/Footer/Footer";
-
-// import { SimpleForm } from "./components/SimpleForm/SimpleForm";
-// import { ContactList } from "./components/ContactList/ContactList";
-import { RegistrationForm } from "./components/RegistrationForm/RegistrationForm";
 import { Modal } from "./components/Modal/Modal";
+import {RegistrationForm} from "./components/RegistrationForm/RegistrationForm";
+import { AuthForm } from "./components/AuthForm/AuthForm";
 
 
 export const App = () => {
@@ -38,13 +36,17 @@ export const App = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const delaySeachQuery = useDebounce(searchQuery, 300);
     const [contacts, setContacts] = useState([]);
-    const [modalActive, setModalActive] = useState(false);
+    const [modalActiveAuth, setModalActiveAuth] = useState(true);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const state = location.state;
 
     const addContacts = (contactInfo) => {
         setContacts([...contacts, contactInfo]);
     }
 
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         Promise.all([api.getProductsList(), api.getUserInfo(), api.getAllUsers()])
@@ -150,21 +152,18 @@ export const App = () => {
                 <Header>
                     <Logo />
                     <Search searchText={searchQuery} />
+                    <Link to="/login" state={{ backgroundLocation: location, initialPath: location.pathname }}>Login</Link>
                 </Header>
-                <div className="content container">
-                    <SearchInfo />
-                    {/* <SimpleForm addContacts={addContacts}/> */}
-                    {/* <ContactList contacts={contacts}/> */}
-                    {/* <button onClick={() => setModalActive(true)}>Open modal</button> */}
-
-                    {/* <RegistrationForm /> */}
-                    {/* <Modal
+                <main className="content container">
+                    {/* <button onClick={() => setModalActive(true)}>Open modal</button>
+                    <Modal
                         active={modalActive}
                         setActive={setModalActive}
                     >
                         <RegistrationForm />
                     </Modal> */}
-                    <Routes>
+                    <SearchInfo />
+                    <Routes location={state && { ...state?.backgroundLocation, pathname: state?.initialPath } || location}>
                         <Route path="/" element={
                             <CatalogPage />
                         } />
@@ -181,7 +180,42 @@ export const App = () => {
                             <NotFoundPage />
                         } />
                     </Routes>
-                </div>
+
+                    {state?.backgroundLocation && (
+                        <Routes>
+                            <Route path="/login" element={
+                                <Modal active={true} setActive={() => { navigate(-1) }}>
+                                    <>
+                                        <AuthForm />
+                                        <div>
+                                            <Link to="/register" replace={true} state={{ ...state, backgroundLocation: location }}>Зарегестрироваться</Link>
+                                        </div>
+                                        <div>
+                                            <Link to="/forgot" replace={true} state={{ ...state, backgroundLocation: location }}>Восстановить пароль</Link>
+                                        </div>
+                                    </>
+                                </Modal>
+                            } />
+                            <Route path="/register" element={
+                                <Modal active={true} setActive={() => { navigate(-1) }}>
+                                    <>
+                                        <RegistrationForm />
+                                        <div>
+                                            <Link to="/login" replace={true} state={{ ...state, backgroundLocation: location }}>Войти</Link>
+                                        </div>
+                                    </>
+                                </Modal>
+                            } />
+                            <Route path="/forgot" element={
+                                <Modal active={true} setActive={() => { navigate(-1) }}>
+                                    <>
+                                        Восстановление пароля
+                                    </>
+                                </Modal>
+                            } />
+                        </Routes>
+                    )}
+                </main>
                 <Footer />
             </AppContext.Provider>
         </>

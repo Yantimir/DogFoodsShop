@@ -2,33 +2,16 @@
     display: flex;
     margin-bottom: 40px;
 }
-
-.author {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-}
-
-.user {
-    padding-left: 20px;
-}
-
-.userName {
-    font-weight: 800;
-}
-
-.about {
-    font-size: 14px;
-    line-height: 20px;
-    color: #7b8e98;
+.authorReview{
+    margin-right: 40px;
 }
 
 .text p {
     margin: 0 0 10px 0;
 }
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+.about {
+    font-size: 14px;
+    line-height: 20px;
+    color: #7b8e98;
 }

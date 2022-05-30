@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import classNames from "classnames";
 import { CloseOutlined } from "@ant-design/icons/lib/icons";
 
+
 export const Modal = ({ active, setActive, children }) => {
 
     return (
@@ -16,7 +17,9 @@ export const Modal = ({ active, setActive, children }) => {
             <div className={style.content} onMouseDown={(e)=> e.stopPropagation()}>
                 <CloseOutlined
                     className={style.crossIcon}
-                    onClick={() => setActive(false)}
+                    onClick={() => {
+                        setActive(false);
+                    }}
                 />
                 {children}
             </div>
