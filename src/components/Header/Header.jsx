@@ -35,8 +35,8 @@ export const Header = ({ children }) => {
                     <div className={style.profile}>
                         {user.name && <div>{user.name}</div>}
                         {user.about && <div>{user.about}</div>}
-                        {user.email && <div>{user.email}</div>}
-                        <Button buttonAction={handleClickUpdateUser} type="secondary">Изменить</Button>
+                        {/* {user.email && <div>{user.email}</div>} */}
+                        {/* <Button buttonAction={handleClickUpdateUser} type="secondary">Изменить</Button> */}
                     </div>
                 </div>
             </div>

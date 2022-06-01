@@ -21,9 +21,9 @@ import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { FaqPage } from "./pages/FaqPage/FaqPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Footer } from "./components/Footer/Footer";
-import { Modal } from "./components/Modal/Modal";
-import {RegistrationForm} from "./components/RegistrationForm/RegistrationForm";
-import { AuthForm } from "./components/AuthForm/AuthForm";
+// import { Modal } from "./components/Modal/Modal";
+// import {RegistrationForm} from "./components/RegistrationForm/RegistrationForm";
+// import { AuthForm } from "./components/AuthForm/AuthForm";
 
 
 export const App = () => {
@@ -152,16 +152,9 @@ export const App = () => {
                 <Header>
                     <Logo />
                     <Search searchText={searchQuery} />
-                    <Link to="/login" state={{ backgroundLocation: location, initialPath: location.pathname }}>Login</Link>
+                    {/* <Link to="/login" state={{ backgroundLocation: location, initialPath: location.pathname }}>Login</Link> */}
                 </Header>
                 <main className="content container">
-                    {/* <button onClick={() => setModalActive(true)}>Open modal</button>
-                    <Modal
-                        active={modalActive}
-                        setActive={setModalActive}
-                    >
-                        <RegistrationForm />
-                    </Modal> */}
                     <SearchInfo />
                     <Routes location={state && { ...state?.backgroundLocation, pathname: state?.initialPath } || location}>
                         <Route path="/" element={
@@ -181,7 +174,7 @@ export const App = () => {
                         } />
                     </Routes>
 
-                    {state?.backgroundLocation && (
+                    {/* {state?.backgroundLocation && (
                         <Routes>
                             <Route path="/login" element={
                                 <Modal active={true} setActive={() => { navigate(-1) }}>
@@ -214,7 +207,7 @@ export const App = () => {
                                 </Modal>
                             } />
                         </Routes>
-                    )}
+                    )} */}
                 </main>
                 <Footer />
             </AppContext.Provider>
